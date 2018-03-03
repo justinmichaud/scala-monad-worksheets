@@ -71,7 +71,7 @@ object MonadTransformer {
                   (implicit m: Monad[Monad1, A],
                    ev: Monad1[A] =:= Monad2[A])
                   : OptionT[Monad1, B] =
-      FlatMapped[Monad1, A, B](this, f)
+      ???
 
     // ({ type T[A] = Monad1[Monad2[A]] })#T is just a scary way
     // of writing
@@ -81,7 +81,7 @@ object MonadTransformer {
     def flatMap[Monad2[_], B](f: A=>OptionT[Monad2, B])
                              (implicit m: Monad[Monad1, A])
                              : OptionT[({ type T[A] = Monad1[Monad2[A]] })#T, B] =
-      Mapped[Monad1, A, Monad2, B](this, f)
+      ???
 
 
     // Convert our series of transformations into a final nested Monad1
@@ -95,17 +95,7 @@ object MonadTransformer {
     def run = m
   }
 
-  final case class Mapped[Monad1[_], A, Monad2[_], B](head: OptionT[Monad1, A], fn: A => OptionT[Monad2, B])
-                                                     (implicit val mapper: Monad[Monad1, A])
-                                                      extends OptionT[({ type T[A] = Monad1[Monad2[A]] })#T, B] {
-    def run = mapper.map(head.run, x => fn(x).run)
-  }
-
-  final case class FlatMapped[Monad1[_], A, B](head: OptionT[Monad1, A], fn: A => OptionT[Monad1, B])
-                                              (implicit val mapper: Monad[Monad1, A])
-                                               extends OptionT[Monad1, B] {
-    def run = mapper.flatMap(head.run, x => fn(x).run)
-  }
+  // ***** Add any other case classes you need here
 }
 
 // Instead of nesting, we can "transform" each monad here

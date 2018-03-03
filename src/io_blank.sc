@@ -4,14 +4,14 @@ import scala.io.StdIn
 // Further reading + inspiration: https://underscore.io/blog/posts/2015/04/28/monadic-io-laziness-makes-you-free.html
 
 sealed trait IO[A] {
-  def map[B](fn: A=>B): IO[B] = ???
+  def map[B](fn: A=>B): IO[B] = flatMap(x => IO.Bind(() => fn(x)))
   def flatMap[B](fn: A=>IO[B]): IO[B] = ???
   def run: A
 }
 
 object IO {
   final case class Bind[A](fn: () => A) extends IO[A] {
-    def run = ???
+    def run = fn()
   }
   final case class Compose[A, B](head: IO[A], transform: A=>IO[B]) extends IO[B] {
     def run = ???
@@ -29,6 +29,7 @@ val sayHello = for {
   _ <- IO.puts(s"Hello $name!")
 } yield name
 
+// This is the exact same as above
 val sayHelloDesugared =
   IO.puts("*What is your first name?")
     .flatMap(_ => IO.gets)
