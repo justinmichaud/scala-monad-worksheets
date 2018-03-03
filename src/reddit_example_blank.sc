@@ -27,20 +27,12 @@ def makeFrontpageRequest: Future[String] = Future {
 def parsePost(body: String): Try[Post] = {
   for {
     json <- Try(parse(body))
-    posts <- Try(json \ "data" \ "children")
-    post <- Try(posts.children.head)
-    postData <- Try(post \ "data" \ "title")
-    title <- Try(postData.extract[String])
+    ??? <- ???
+    title <- ???
   } yield Post(title)
 }
 
-val result: Future[Try[Post]] = for {
-  body <- makeFrontpageRequest
-} yield {
-  for {
-    incident <- parsePost(body)
-  } yield incident
-}
+val result: Future[Try[Post]] = ???
 
 println("Should not block until await")
 

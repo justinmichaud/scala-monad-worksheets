@@ -61,26 +61,34 @@ object Monad {
   }
 }
 
+// The heart of this example
+// This was hard to write, don't worry if it is hard to read
 object MonadTransformer {
-  // Scalaz has a similar type called OptionT, although
-  // we will implement a simpler version here
-  // See scalaz example
+  // Monad1[_] just means that we want a type like Option
+  // That is, we want Option and not Option[T], a higher-kinded type
   sealed trait OptionT[Monad1[_], A] {
     type AoA[T] = Monad1[Monad1[T]]
 
     def map[B](f: A=>B)
               (implicit m: Monad[Monad1, A])
-    : OptionT[Monad1, B] =
+              : OptionT[Monad1, B] =
       CompositionMap[Monad1, A, B](this, f)
 
+    // ({ type T[A] = Monad1[Monad2[A]] })#T is just a scary way
+    // of writing
+    //     type T[A] = Monad1[Monad2[A]]
+    // inline. That is, it is the higher-kinded type that has
+    // Monad2[_] nested within it.
     def flatMap[Monad2[_], B](f: A=>OptionT[Monad2, B])
                              (implicit m: Monad[Monad1, A])
-    : OptionT[({ type T[A] = Monad1[Monad2[A]] })#T, B] =
+                              : OptionT[({ type T[A] = Monad1[Monad2[A]] })#T, B] =
       Composition[Monad1, A, Monad2, B](this, f)
 
     def run: Monad1[A]
   }
 
+  // Our type to represent a value that has been "lifted" into
+  // our wrapper type
   final case class Lifted[Monad1[_], A](m: Monad1[A])
     extends OptionT[Monad1, A] {
     def run = m
