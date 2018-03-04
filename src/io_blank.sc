@@ -11,7 +11,7 @@ sealed trait IO[A] {
 
 object IO {
   final case class Bind[A](fn: () => A) extends IO[A] {
-    def run = fn()
+    def run = ???
   }
   final case class Compose[A, B](head: IO[A], transform: A=>IO[B]) extends IO[B] {
     def run = ???

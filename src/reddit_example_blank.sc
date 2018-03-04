@@ -27,9 +27,8 @@ def makeFrontpageRequest: Future[String] = Future {
 def parsePost(body: String): Try[Post] = {
   for {
     json <- Try(parse(body))
-    ??? <- ???
-    title <- ???
-  } yield Post(title)
+    // ???
+  } yield Post(???)
 }
 
 val result: Future[Try[Post]] = ???
