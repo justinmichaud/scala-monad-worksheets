@@ -1,4 +1,5 @@
 # Monad Scala Worksheets - Lightning Talk
+[Slides](https://gitpitch.com/justinmichaud/scala-monad-worksheets/master?grs=github&t=black)
 
 Each file has an associated _blank file for you to try for yourself. You should fill in the blanks to get the desired result. Suggested order is given below.
 
