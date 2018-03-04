@@ -6,7 +6,7 @@ import org.json4s.jackson.JsonMethods.parse
 
 import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext, Future}
-import scala.util.{Failure, Success, Try}
+import scala.util.{Success, Try}
 
 implicit val format = DefaultFormats
 implicit val ec: ExecutionContext = ExecutionContext.global
@@ -54,13 +54,10 @@ object MonadTransformer {
   // Creates a new monad that has the characteristics of Try + Monad1
   final case class TryT[Monad1[_], A](value: Monad1[Try[A]])(implicit m: Monad[Monad1]) {
     def map[B](f: A=>B): TryT[Monad1, B] =
-      flatMap(x => TryT(m.point(Success(f(x)))))
+      ???
 
     def flatMap[B](f: A=>TryT[Monad1, B]): TryT[Monad1, B] =
-      TryT(m.flatMap[Try[A],Try[B]](value, {
-        case Success(v) => f(v).value
-        case Failure(e) => m.point(Failure(e))
-      }))
+      ???
   }
 }
 
