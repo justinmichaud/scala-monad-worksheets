@@ -1,7 +1,8 @@
 @title[What the hell is a monad?]
 
-### Justin Michaud
-#### April ???
+# What the hell is a monad?
+##### Justin Michaud
+###### April ???
 
 ---
 
@@ -18,24 +19,26 @@ sealed trait Monad {
 # The IO Monad
 
 ---?code=src/io_blank.sc&title=IO Monad
-@[1,23-30]
+@[22-30]
 
 ---
 
 # Parsing JSON With Monads
 
 ---?code=src/reddit_example_blank.sc&title=Reddit Example
-@[1,27-33]
+@[27-33]
 
 ---
 
 # Monad Transformers
 
 ---?code=src/reddit_monad_transformer_blank.sc&title=Reddit Example
-@[1,53-62](Left as an exercise)
+@[53-62](Left as an exercise)
 
 ---
 
-# Where can I learn more?
+### Where can I learn more?
 See the examples at [github.com/justinmichaud/scala-monad-worksheets](https://github.com/justinmichaud/scala-monad-worksheets) for
-worksheets, slides, and links to blog posts for further reading.
+worksheets, slides, and links
+
+---
