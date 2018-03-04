@@ -33,7 +33,8 @@ sealed trait Monad {
 # Monad Transformers
 
 ---?code=src/reddit_monad_transformer_blank.sc&title=Reddit Example
-@[53-62](Left as an exercise)
+@[54-63](Left as an exercise)
+@[72-83](Left as an exercise)
 
 ---
 

@@ -51,8 +51,10 @@ object Monad {
 }
 
 object MonadTransformer {
-  // Creates a new monad that has the characteristics of Try + Monad1
-  final case class TryT[Monad1[_], A](value: Monad1[Try[A]])(implicit m: Monad[Monad1]) {
+  // Creates a new monad that has the characteristics
+  // of Try + Monad1
+  case class TryT[Monad1[_], A](value: Monad1[Try[A]])
+                               (implicit m: Monad[Monad1]) {
     def map[B](f: A=>B): TryT[Monad1, B] =
       flatMap(x => TryT(m.point(Success(f(x)))))
 
@@ -70,9 +72,9 @@ def wrapInFutureTryT[A](v: => A) =
 def fromA[Monad1[_], A](v: Monad1[A])(implicit m1: Monad.Monad[Monad1]) =
   MonadTransformer.TryT[Monad1, A](m1.map[A,Try[A]](v, x => Success(x)))
 
-// TryT lets us stack another monad onto Try. We can convert all of our values
-// into a Future[Try[A]], and let TryT handle the unwrapping for us
-// We get all of the characteristics of both monads!
+// TryT lets us stack another monad onto Try. We can
+// convert all of our values into a Future[Try[A]],
+// and let TryT handle the unwrapping for us!
 val result2: TryT[Future, Post] = for {
   body <- fromA(makeFrontpageRequest)
   json <- wrapInFutureTryT(parse(body))
