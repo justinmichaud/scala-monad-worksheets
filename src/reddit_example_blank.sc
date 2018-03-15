@@ -9,26 +9,30 @@ import scala.util.Try
 implicit val ec: ExecutionContext = ExecutionContext.global
 implicit val format = DefaultFormats
 
-final case class Post(title: String)
+final case class Post(title: String, subreddit: String, domain: String)
 
 def makeFrontpageRequest: Future[String] = Future {
   Http("https://www.reddit.com/.json")
     .asString.body
 }
 
-// Produce the a post on the front page
-// Tip: json \ "key" \ "key2") will extract {"key": {"key2": val}}
-//     or throw otherwise
-// Tip: json.children will produce a list of json values if json
-//     is an array, or throw otherwise
-// Tip: json.extract[Type] will attempt to turn the json into Type
-// Tip: Try(expr) will produce Success if expr runs without throwing,
-//     or a Failure(exception) if it throws
-def parsePost(body: String): Try[Post] = {
+def makeFrontpageRequestError: Future[String] = Future {
+  "\"data\": {\"children\":[]}"
+}
+
+def parsePost(body: JValue): Try[Post] = {
+  for {
+    postData <- Try(body \ "data")
+    post <- Try(postData.extract[Post])
+  } yield post
+}
+
+def parsePosts(body: String): Try[List[Post]] = {
   for {
     json <- Try(parse(body))
-    // ???
-  } yield Post(???)
+    posts <- Try(json \ "data" \ "children")
+    posts <- Try(posts.children)
+  } yield ???
 }
 
 val result: Future[Try[Post]] = ???

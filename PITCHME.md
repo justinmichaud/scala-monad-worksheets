@@ -1,8 +1,12 @@
-@title[What the hell is a monad?]
+@title[What is a monad?]
 
-# What the hell is a monad?
+# What is a monad?
 ##### Justin Michaud
 ###### April ???
+
+---
+
+![https://imgs.xkcd.com/comics/haskell.png]()
 
 ---
 
@@ -14,14 +18,44 @@ sealed trait Monad {
 }
 ```
 
----
-
-# The IO Monad
-
----?code=src/io_blank.sc&title=IO Monad
-@[22-30]
+Ex: Option, Try, Future
 
 ---
+
+# Option
+```
+val myVal: Option[Int] = Some(5)
+val myVal2: Option[Int] = None
+myVal.flatMap(x => Some(x + 1))
+> res: Option[Int] = Some(6)
+myVal2.flatMap(x => Some(x + 1))
+> res2: Option[Int] = None
+```
+
+---
+
+# Try
+
+```
+def myFun(): String = throw new RuntimeException()
+Try(myFun)
+> res1: Try[String] = Failure(java.lang.RuntimeException)
+```
+
+---
+
+# Future
+
+```
+implicit val ec = ExecutionContext.global
+val res = Future {
+    Thread.sleep(5000)
+    "My async code"
+}
+> res: Future[String] = Future(<not completed>)
+res
+> res: Future[String] = Future(Success(My async code))
+```
 
 # Parsing JSON With Monads
 
@@ -30,7 +64,14 @@ sealed trait Monad {
 
 ---
 
-# Monad Transformers
+# The IO Monad
+
+---?code=src/io_blank.sc&title=IO Monad
+@[23-38]
+
+---
+
+# Monad Transformers (Teaser)
 
 ---?code=src/reddit_monad_transformer_blank.sc&title=Reddit Example
 @[54-63](Left as an exercise)
