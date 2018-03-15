@@ -3,7 +3,7 @@
 
 Each file has an associated _blank file for you to try for yourself. You should fill in the blanks to get the desired result. Suggested order is given below.
 
-You can open these examples as an intellij worksheet file, with the exception of the IO examples which require ammonite.
+You can open these examples as an intellij worksheet file, with the exception of the IO examples which require ammonite for input.
 
 1) reddit_example - Use Future and Try to request the reddit front page and parse its json
 2) io - Implement an IO monad that allows you to compose operations that have side effects in a pure way, and interpret them later.
@@ -49,8 +49,10 @@ See the reddit_monad_transformer example to implement this yourself!
 
 # Where can I learn more?
 There are plenty of great blogs and books about this topic. If like me, you are not quite ready to learn Haskell, I recommend
-reading this [blog post](https://underscore.io/blog/posts/2015/04/14/free-monads-are-simple.html) about free monads and
-interpereters, a generalization of the IO monad we discussed.
+reading starting off with these blog posts.
+
+- https://underscore.io/blog/posts/2015/04/28/monadic-io-laziness-makes-you-free.html
+- https://underscore.io/blog/posts/2015/04/14/free-monads-are-simple.html
 
 You can also check out scalaz or cats, two libraries that provide support for many of these abstractions (although they may be a
 bit too far out there for heavy production use)

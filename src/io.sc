@@ -1,7 +1,6 @@
 import scala.io.StdIn
 
 // Run with ammonite (amm io.sc)
-// Further reading + inspiration: https://underscore.io/blog/posts/2015/04/28/monadic-io-laziness-makes-you-free.html
 
 sealed trait IO[A] {
   def map[B](fn: A=>B): IO[B] = flatMap(x => IO.Bind(() => fn(x)))
