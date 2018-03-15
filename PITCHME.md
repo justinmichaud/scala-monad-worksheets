@@ -36,7 +36,7 @@ myVal2.flatMap(x => Some(x + 1))
 
 # Try
 
-```
+```scala
 def myFun(): String = throw new RuntimeException()
 Try(myFun)
 > res1: Try[String] = Failure(java.lang.RuntimeException)
@@ -46,7 +46,7 @@ Try(myFun)
 
 # Future
 
-```
+```scala
 implicit val ec = ExecutionContext.global
 val res = Future {
     Thread.sleep(5000)
