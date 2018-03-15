@@ -23,7 +23,7 @@ Ex: Option, Try, Future
 ---
 
 # Option
-```lang=scala
+```lang:scala
 val myVal: Option[Int] = Some(5)
 val myVal2: Option[Int] = None
 myVal.flatMap(x => Some(x + 1))
@@ -36,7 +36,7 @@ myVal2.flatMap(x => Some(x + 1))
 
 # Try
 
-```lang=scala
+```lang:scala
 def myFun(): String = throw new RuntimeException()
 Try(myFun)
 > res1: Try[String] = Failure(java.lang.RuntimeException)
@@ -46,7 +46,7 @@ Try(myFun)
 
 # Future
 
-```lang=scala
+```lang:scala
 implicit val ec = ExecutionContext.global
 val res = Future {
     Thread.sleep(5000)
@@ -57,22 +57,15 @@ res
 > res: Future[String] = Future(Success(My async code))
 ```
 
----
-
 ---?code=src/reddit_example_blank.sc&title=Parsing JSON With Monads
 @[23-36](Parse Reddit Front Page)
-
----
 
 ---?code=src/io_blank.sc&title=The IO Monad
 @[22-29]
 
----
-
 ---?code=src/reddit_monad_transformer_blank.sc&title=Monad Transformers (Teaser)
-@[44-62](Left as an exercise)
 @[65-75](Left as an exercise)
-@[93-103](Left as an exercise)
+@[92-103](Left as an exercise)
 
 ---
 
