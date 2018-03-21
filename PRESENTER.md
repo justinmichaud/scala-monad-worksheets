@@ -3,8 +3,8 @@
 That depends who you ask. Answers range from "monads are like burritos[1]" to "monads are monoids in the category of endofunctors[2]".
 
 For our purposes, a monad is a thing that has
-1) An operator that, for any type A, will wrap it. This is called point above.
-2) An operator that acts like flatmap, allowing us to chain/compose together functions
+1) An operator that, for any type A, will wrap it. This is called point on the slide.
+2) An operator that acts like flatmap, allowing us to chain/compose together functions on our wrapped values
 
 Essentially, it allows us to augment a value by wrapping it up, while still allowing function composition to work as expected.
 This allows us to define "pipelines" for data to flow in, and to let a monad abstract away control flow.
@@ -15,11 +15,13 @@ Option abstracts away "nothingness"
 Try abstracts away exception handling
 Future abstracts away when a computation is run
 
+1:40
+
 # Parsing JSON
 
 Your mission, should you choose to accept it, is to produce the title of the top post on reddit.
 
-First, I should explain some syntax. Scala's for comprehensions are really just combinations of map and flatmap. For example:
+First, let's make a request:
 
 ---
 
@@ -42,7 +44,7 @@ We need toOption because list a Try is not compatible with List's flatMap functi
 
 ---
 
-Let us write this using scala's shorthand:
+Let us write this using scala's shorthand, called a "for comprehension":
 
 val result = for {
   body <- makeFrontpageRequest
@@ -65,6 +67,8 @@ val result = for {
 
 Which is a Future[Try[Post]] as expected
 
+2:50
+
 # The IO Monad
 
 The IO monad allows pure functions to build a pipeline of impure operations, then send them to an impure interpreter
@@ -82,8 +86,12 @@ fn()
 
 transform(head.run).run
 
+1:55
+
 # There's more
 
 I prepared one more example for you to check out if you are interested. It involves something called "monad transformers," which let you combine characteristics of different monads.
 
 That is all!
+
+0:25
