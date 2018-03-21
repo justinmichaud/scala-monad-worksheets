@@ -18,18 +18,21 @@ sealed trait Monad {
 }
 ```
 
-A monad is a thing that has
+That depends who you ask. Answers range from "monads are like burritos[1]" to "monads are monoids in the category of endofunctors[2]".
+
+For our purposes, a monad is a thing that has
 1) An operator that, for any type A, will wrap it. This is called point above.
-2) An operator that acts like flatmap, allowing us to chain together functions
+2) An operator that acts like flatmap, allowing us to chain/compose together functions
 
 Essentially, it allows us to augment a value by wrapping it up, while still allowing function composition to work as expected.
 This allows us to define "pipelines" for data to flow in, and to let a monad abstract away control flow.
 
-What do Future, Option, and Try all have in common? The reason they "feel" similar is because they are all monads[1]!
-Future abstracts away when the computation is run, option abstracts away "nothingness," and Try abstracts away exception
-handling.
+What do Future, Option, and Try all have in common? The reason they "feel" similar is because they are all monads[3]!
+Option abstracts away "nothingness," Try abstracts away exception handling, and Future abstracts away when the computation is run.
 
-[1] Some people claim that Future and Try are not technically monads when you consider all of the possible side-effects that they allow, but
+[1] https://blog.plover.com/prog/burritos.html
+[2] https://blog.merovius.de/2018/01/08/monads-are-just-monoids.html
+[3] Some people claim that Future and Try are not technically monads when you consider all of the possible side-effects that they allow, but
 the debate is very technical, and has little impact on every-day use
 
 # The IO Monad
