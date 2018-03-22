@@ -4,16 +4,16 @@ import scala.io.StdIn
 
 sealed trait IO[A] {
   def map[B](fn: A=>B): IO[B] = flatMap(x => IO.Bind(() => fn(x)))
-  def flatMap[B](fn: A=>IO[B]): IO[B] = IO.Compose(this, fn)
+  def flatMap[B](fn: A=>IO[B]): IO[B] = ???
   def run: A
 }
 
 object IO {
   final case class Bind[A](fn: () => A) extends IO[A] {
-    def run = fn()
+    def run = ???
   }
   final case class Compose[A, B](head: IO[A], transform: A=>IO[B]) extends IO[B] {
-    def run = transform(head.run).run
+    def run = ???
   }
   def puts(msg: String): IO[Unit] = Bind(() => println(msg))
   def gets: IO[String] = Bind(StdIn.readLine)

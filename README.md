@@ -14,6 +14,10 @@ This is the same idea that haskell uses to accomplish pure IO
 ```
 sealed trait Monad {
     def flatMap[A,B](fn: A=>Monad[B]): Monad[B]
+    def map[B](fn: A=>B): Monad[B] = flatMap(x => point(f(x)))
+}
+
+object Monad {
     def point[A](a: A): Monad[A]
 }
 ```
@@ -38,7 +42,9 @@ the debate is very technical, and has little impact on every-day use
 # The IO Monad
 
 The IO monad allows pure functions to build a pipeline of impure operations, then send them to an impure interpreter
-for execution. This is how Haskell can maintain purity while still allowing the program to do useful things.
+for execution. An impure function is one that has side effects; That is, calling it multiple times with the same parameters may
+produce a different result. The IO monad allows Haskell programs to remain completely pure, while still allowing the program to do useful things.
+We decouple the program from its side effects.
 
 See the io example to implement this yourself!
 

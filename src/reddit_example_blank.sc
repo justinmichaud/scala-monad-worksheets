@@ -32,16 +32,10 @@ def parsePosts(body: String): Try[List[Post]] = {
     json <- Try(parse(body))
     posts <- Try(json \ "data" \ "children")
     posts <- Try(posts.children)
-  } yield posts.flatMap(parsePost(_).toOption)
+  } yield ???
 }
 
-val result = for {
-  body <- makeFrontpageRequest
-} yield
-  for {
-    posts <- parsePosts(body)
-    post <- Try(posts.head)
-  } yield post
+val result: Future[Try[Post]] = ???
 
 println("Should not block until await")
 

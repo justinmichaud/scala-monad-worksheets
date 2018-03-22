@@ -14,6 +14,10 @@
 ```
 sealed trait Monad {
     def flatMap[A,B](fn: A=>Monad[B]): Monad[B]
+    def map[B](fn: A=>B): Monad[B] = flatMap(x => point(f(x)))
+}
+
+object Monad {
     def point[A](a: A): Monad[A]
 }
 ```
@@ -61,7 +65,7 @@ res
 @[23-36](Parse Reddit Front Page)
 
 ---?code=src/io_blank.sc&title=The IO Monad
-@[22-29]
+@[22-29](Left as an exercise)
 
 ---?code=src/reddit_monad_transformer_blank.sc&title=Monad Transformers (Teaser)
 @[65-75](Left as an exercise)
