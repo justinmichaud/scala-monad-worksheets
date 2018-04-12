@@ -64,12 +64,8 @@ res
 ---?code=src/reddit_example_blank.sc&title=Parsing JSON With Monads
 @[23-36](Parse Reddit Front Page)
 
----?code=src/io_blank.sc&title=The IO Monad
+---?code=src/io_blank.sc&title=More examples
 @[22-29](Left as an exercise)
-
----?code=src/reddit_monad_transformer_blank.sc&title=Monad Transformers (Teaser)
-@[65-75](Left as an exercise)
-@[92-103](Left as an exercise)
 
 ---
 

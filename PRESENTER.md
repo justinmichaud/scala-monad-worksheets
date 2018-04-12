@@ -9,7 +9,7 @@ For our purposes, a monad is a thing that has
 Essentially, it allows us to augment a value by wrapping it up, while still allowing function composition to work as expected.
 This allows us to define "pipelines" for data to flow in, and to let a monad abstract away control flow.
 
-Keep map in the back of your mind. It is not part of the definition of a monad, but given a monad, the implementation of map is the same.
+Keep map in the back of your mind. It is not part of the definition of a monad, but given a monad, you get map for free.
 
 What do Future, Option, and Try all have in common? The reason they "feel" similar is because they are all monads!
 
@@ -21,7 +21,7 @@ Future abstracts away when a computation is run
 
 # Parsing JSON
 
-Your mission, should you choose to accept it, is to produce the title of the top post on reddit.
+Your mission, should you choose to accept it, is to produce the title of the top post on reddit using monads.
 
 First, let's make a request:
 
@@ -32,7 +32,7 @@ val result = makeFrontpageRequest
 (this is a Future[String])
 ---
 
-val result = makeFrontpageRequest.map(body => parsePosts(body))
+val result = makeFrontpageRequest.map(parsePosts)
 
 (this is a Future[Try[List[Post]]])
 
@@ -46,18 +46,19 @@ We need toOption because list a Try is not compatible with List's flatMap functi
 
 ---
 
-Let us write this using scala's shorthand, called a "for comprehension":
+Now, let's grab the first post and produce that
 
-val result = for {
-  body <- makeFrontpageRequest
-} yield
-  for {
-    posts <- parsePosts(body)
-  } yield posts
+val result = makeFrontpageRequest.map(body =>
+  parsePosts(body).flatMap(posts =>
+    Try(posts.head)
+  )
+)
+
+This is a Future[Try[Post]], as expected.
 
 ---
 
-Now, let's grab the first post and produce that
+This is a bit unweildy, so let us write this using scala's shorthand, called a "for comprehension":
 
 val result = for {
   body <- makeFrontpageRequest
@@ -69,28 +70,14 @@ val result = for {
 
 Which is a Future[Try[Post]] as expected
 
-Remember that this for syntax is still just calling map and flatMap under the hood.
+Remember that this for syntax can be reduced to only calls to flatmap. This syntax lets us see that this is just a pipeline for data.
 
-val result = makeFrontpageRequest.map(body =>
-  parsePosts(body).flatMap(posts =>
-    Try(posts.head)
-  )
-)
+3:40
 
-3:00
+# Further Reading
 
-# The IO Monad
+I have prepared two more worksheet examples for you. The first example, the IO monad, talks about how to cleanly compose together operations with side effects.  Next, "monad transformers" let you combine and compose characteristics of different monads easily.
 
-The IO monad allows pure functions to build a pipeline of impure operations, then send them to an impure interpreter
-for execution. An impure function is one that has side effects; That is, calling it multiple times with the same parameters may
-produce a different result. The IO monad allows Haskell programs to remain completely pure, while still allowing the program to do useful things.
+On the github page, I have the slides, worksheets and some more resources for you to continue reading.
 
-You can check out this example on the github page for this talk.
-
-# There's more
-
-I prepared one more example for you to check out if you are interested. It involves something called "monad transformers," which let you combine characteristics of different monads.
-
-That is all!
-
-0:15
+0:25

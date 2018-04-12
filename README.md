@@ -65,3 +65,9 @@ reading starting off with these blog posts.
 
 You can also check out scalaz or cats, two libraries that provide support for many of these abstractions (although they may be a
 bit too far out there for heavy production use)
+
+Finally, some resources that seemed interesting (but I will admit I haven't read through yet) about category theory:
+
+- "Monads for functional programming", by Philip Wadler: http://homepages.inf.ed.ac.uk/wadler/papers/marktoberdorf/baastad.pdf
+- "Seven Sketches in Compositionality: An Invitation to Applied Category Theory": https://johncarlosbaez.wordpress.com/2018/03/26/seven-sketches-in-compositionality/
+- http://nikgrozev.com/2016/03/14/functional-programming-and-category-theory-part-1-categories-and-functors/
