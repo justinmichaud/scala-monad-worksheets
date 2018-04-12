@@ -24,12 +24,17 @@ object Monad {
 
 That depends who you ask. Answers range from "monads are like burritos[1]" to "monads are monoids in the category of endofunctors[2]".
 
-For our purposes, a monad is a thing that has
-1) An operator that, for any type A, will wrap it. This is called point above.
-2) An operator that acts like flatmap, allowing us to chain/compose together functions
+For our purposes, a monad is a thing that has two operators
+1) Point, which can wrap up any type A
+2) Flatmap, which allows us to chain/compose together functions on our wrapped values
 
 Essentially, it allows us to augment a value by wrapping it up, while still allowing function composition to work as expected.
-This allows us to define "pipelines" for data to flow in, and to let a monad abstract away control flow.
+This allows us to define "pipelines" for data to flow through, and to let a monad abstract away control flow.
+
+THIS IS WHAT A MONAD IS! It is a way to abstract away control flow. If you find yourself with a bunch of nested conditions,
+or re-inventing some way to "chain" steps together, STOP AND USE A MONAD!
+
+Sidenote: map is not part of the definition of a monad, but given a monad, you get map for free.
 
 What do Future, Option, and Try all have in common? The reason they "feel" similar is because they are all monads[3]!
 Option abstracts away "nothingness," Try abstracts away exception handling, and Future abstracts away when the computation is run.

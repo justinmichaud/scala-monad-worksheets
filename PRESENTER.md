@@ -1,27 +1,34 @@
 # What is a Monad? (Presenter Notes)
 
-That depends who you ask. Answers range from "monads are like burritos[1]" to "monads are monoids in the category of endofunctors[2]".
+[show comic]
 
-For our purposes, a monad is a thing that has
-1) An operator that, for any type A, will wrap it. This is called point on the slide.
-2) An operator that acts like flatmap, allowing us to chain/compose together functions on our wrapped values
+I am going to show you a few examples of monads in scala. Don't worry about understanding everything now, you will have
+to play with the code yourself for this to make any sense.
 
-Essentially, it allows us to augment a value by wrapping it up, while still allowing function composition to work as expected.
-This allows us to define "pipelines" for data to flow in, and to let a monad abstract away control flow.
+So what is a monad?
 
-Keep map in the back of your mind. It is not part of the definition of a monad, but given a monad, you get map for free.
+For our purposes, a monad is a thing that has two operators
+1) Point, which can wrap up any type A
+2) Flatmap, which allows us to create pipelines of functions operating on our data
+
+THIS IS WHAT A MONAD IS! It is a way to abstract away control flow by making pipelines.
+If you find yourself with a bunch of nested conditions, or re-inventing some way to "chain" steps together, STOP AND USE A MONAD!
 
 What do Future, Option, and Try all have in common? The reason they "feel" similar is because they are all monads!
 
-Option abstracts away "nothingness"
-Try abstracts away exception handling
-Future abstracts away when a computation is run
+Option abstracts away "nothingness". We only move on to the next step in the pipeline if we have "Some"
+Try abstracts away exception handling. We only move on to the next step in the pipeline if we did not throw.
+Future abstracts away when a computation is run. We move on some time in the future.
 
-1:45
+Let's look at an example.
+
+1:10
 
 # Parsing JSON
 
 Your mission, should you choose to accept it, is to produce the title of the top post on reddit using monads.
+
+Failure is not an option (its a Try).
 
 First, let's make a request:
 
@@ -76,8 +83,10 @@ Remember that this for syntax can be reduced to only calls to flatmap. This synt
 
 # Further Reading
 
-I have prepared two more worksheet examples for you. The first example, the IO monad, talks about how to cleanly compose together operations with side effects.  Next, "monad transformers" let you combine and compose characteristics of different monads easily.
+I have prepared two more worksheet examples for you, talking about io and monad transformers if you are interested.
 
-On the github page, I have the slides, worksheets and some more resources for you to continue reading.
+On the github page, I have the slides, scala worksheets and some more resources for you to continue reading.
 
-0:25
+Thanks!
+
+0:15

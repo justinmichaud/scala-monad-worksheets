@@ -42,8 +42,10 @@ myVal2.flatMap(x => Some(x + 1))
 
 ```scala
 def myFun(): String = throw new RuntimeException()
-Try(myFun)
+Try(myFun).map(_ => "Hi!")
 > res1: Try[String] = Failure(java.lang.RuntimeException)
+Try(5).map(_ => "Hi!")
+> res2: Try[String] = Success("Hi!")
 ```
 
 ---
@@ -71,4 +73,4 @@ res
 
 ### Where can I learn more?
 See the examples at [github.com/justinmichaud/scala-monad-worksheets](https://github.com/justinmichaud/scala-monad-worksheets) for
-worksheets, slides, and links
+blank scala worksheets, slides, and links
