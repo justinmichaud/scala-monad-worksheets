@@ -19,19 +19,19 @@ or re-inventing some way to "chain" steps together, try to use an existing monad
 
 0:50 / 0:50
 
----
-
 So what do Future, Option, and Try all have in common? The reason they "feel" similar is because they are all monads!
 
 Option abstracts away "nothingness". We only move on to the next step in the pipeline if we have "Some"
+
 Try abstracts away exception handling. We only move on to the next step in the pipeline if we did not throw.
+
 Future abstracts away when a computation is run. We move on some time in the future.
 
 Let's look at an example.
 
 1:20 / 0:30
 
-# Parsing JSON
+## 1
 
 Your mission, should you choose to accept it, is to produce the title of the top post on reddit using monads.
 
@@ -39,15 +39,13 @@ Failure is not an option (its a Try).
 
 First, let's make a request:
 
----
-
 ```
 val result = makeFrontpageRequest
 ```
 
 (this is a Future[String])
 
----
+## 2
 
 ```
 val result = makeFrontpageRequest.map(parsePosts)
@@ -57,7 +55,7 @@ val result = makeFrontpageRequest.map(parsePosts)
 
 First, let's fill in parsePosts. We have a List[JValue], as well as something that takes a JValue and produces a Try[Post]. We need a Try[List[Post]].
 
----
+## 3
 
 ```
 yield posts.flatMap(parsePost(_).toOption)
@@ -65,7 +63,7 @@ yield posts.flatMap(parsePost(_).toOption)
 
 We need toOption because list a Try is not compatible with List's flatMap function
 
----
+## 4
 
 Now, let's grab the first post and produce that.
 
@@ -79,7 +77,7 @@ val result = makeFrontpageRequest.map(body =>
 
 This is a Future[Try[Post]], as expected. We see that body is a String, and posts is a List[Post], since map/flatMap unwrap the value for us.
 
----
+## 5
 
 This is a bit unwieldy, so let us write this using scala's shorthand, called a "for comprehension":
 
