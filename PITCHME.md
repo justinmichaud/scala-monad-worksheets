@@ -2,7 +2,7 @@
 
 # What is a monad?
 ##### Justin Michaud
-###### April ???
+###### April 24, 2018
 
 ---
 
