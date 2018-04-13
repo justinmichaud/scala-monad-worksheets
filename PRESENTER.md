@@ -17,7 +17,7 @@ THIS IS WHAT A MONAD IS! It is a way to abstract away control flow by piping fun
 The one takeaway I want you to get from this talk is: if you find yourself with a bunch of nested error checks,
 or re-inventing some way to "chain" steps together, try to use an existing monad!
 
-0:50
+0:50 / 0:50
 
 ---
 
@@ -29,7 +29,7 @@ Future abstracts away when a computation is run. We move on some time in the fut
 
 Let's look at an example.
 
-0:36
+1:20 / 0:30
 
 # Parsing JSON
 
@@ -41,12 +41,17 @@ First, let's make a request:
 
 ---
 
+```
 val result = makeFrontpageRequest
+```
 
 (this is a Future[String])
+
 ---
 
+```
 val result = makeFrontpageRequest.map(parsePosts)
+```
 
 (this is a Future[Try[List[Post]]])
 
@@ -54,7 +59,9 @@ First, let's fill in parsePosts. We have a List[JValue], as well as something th
 
 ---
 
+```
 yield posts.flatMap(parsePost(_).toOption)
+```
 
 We need toOption because list a Try is not compatible with List's flatMap function
 
@@ -62,11 +69,13 @@ We need toOption because list a Try is not compatible with List's flatMap functi
 
 Now, let's grab the first post and produce that.
 
+```
 val result = makeFrontpageRequest.map(body =>
   parsePosts(body).flatMap(posts =>
     Try(posts.head)
   )
 )
+```
 
 This is a Future[Try[Post]], as expected. We see that body is a String, and posts is a List[Post], since map/flatMap unwrap the value for us.
 
@@ -74,6 +83,7 @@ This is a Future[Try[Post]], as expected. We see that body is a String, and post
 
 This is a bit unwieldy, so let us write this using scala's shorthand, called a "for comprehension":
 
+```
 val result = for {
   body <- makeFrontpageRequest
 } yield
@@ -81,12 +91,13 @@ val result = for {
     posts <- parsePosts(body)
     post <- Try(posts.head)
   } yield post
+```
 
 Which is a Future[Try[Post]] as expected
 
 Remember that this for syntax can be reduced to only calls to flatmap. This syntax lets us see that this is just a pipeline for data.
 
-3:10
+4:40 / 3:10
 
 # Further Reading
 
@@ -96,4 +107,4 @@ On the github page, I have the slides, scala worksheets and some more resources 
 
 Thanks!
 
-0:20
+5:00 / 0:20
