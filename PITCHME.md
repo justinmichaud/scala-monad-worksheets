@@ -159,6 +159,8 @@ val res = for {
 ---?image=img/12.png&size=auto 100%
 ---?image=img/13.png&size=auto 100%
 
+---
+
 ### Where can I learn more?
 See the examples at [github.com/justinmichaud/scala-monad-worksheets](https://github.com/justinmichaud/scala-monad-worksheets) for
 blank scala worksheets, slides, and links
