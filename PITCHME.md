@@ -145,11 +145,19 @@ val res = for {
 > res: Option[Boolean] = ...
 ```
 
----
-
-![](img/1.png)
-
----
+---?image=img/1.png&size=auto 100%
+---?image=img/2.png&size=auto 100%
+---?image=img/3.png&size=auto 100%
+---?image=img/4.png&size=auto 100%
+---?image=img/5.png&size=auto 100%
+---?image=img/6.png&size=auto 100%
+---?image=img/7.png&size=auto 100%
+---?image=img/8.png&size=auto 100%
+---?image=img/9.png&size=auto 100%
+---?image=img/10.png&size=auto 100%
+---?image=img/11.png&size=auto 100%
+---?image=img/12.png&size=auto 100%
+---?image=img/13.png&size=auto 100%
 
 ### Where can I learn more?
 See the examples at [github.com/justinmichaud/scala-monad-worksheets](https://github.com/justinmichaud/scala-monad-worksheets) for
