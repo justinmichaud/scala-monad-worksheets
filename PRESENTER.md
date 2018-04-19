@@ -63,11 +63,9 @@ Scala has some nice syntax to show that this is really a pipeline. Under the hoo
 
 ********
 
-Now, for an example
-
 Let's look at an example.
 
-2:40 / 2:40
+2:10
 ********
 
 Your mission, should you choose to accept it, is to produce the title of the top post on reddit using monads.
@@ -78,7 +76,7 @@ First, let's make a request:
 
 ********
 
-(this is a Future[String])
+(this is a Future[String], and the result is the raw json from reddit like we expect)
 
 ********
 
@@ -102,7 +100,7 @@ Flatmap needs something that produces a try
 
 ********
 
-We have a List[Post]
+We are given a List[Post]
 
 ********
 
@@ -128,7 +126,7 @@ We can see that the for yield block handles wrapping and unwrapping everything f
 
 And so, we built a pipeline! If any of these steps fail, the entire thing will stop. Otherwise, we get our expected result!
 
-4:40 / 1:50
+4:40
 
 ********
 
@@ -140,4 +138,4 @@ On the github page, I have the slides, blank scala worksheets for you to fill in
 
 Thanks!
 
-5:00 / 0:20
+5:00
