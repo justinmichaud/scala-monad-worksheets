@@ -72,73 +72,71 @@ Let's look at an example.
 
 Your mission, should you choose to accept it, is to produce the title of the top post on reddit using monads.
 
-Failure is not an option (its a Try).
+Failure is not an option (its a Try) (as we discssed).
 
 First, let's make a request:
 
-```
-val result = makeFrontpageRequest
-```
+********
 
 (this is a Future[String])
 
-## 2
+********
 
-```
-val result = makeFrontpageRequest.map(parsePosts)
-```
+Now, we can parse it (once we get it) using map
 
-(this is a Future[Try[List[Post]]])
+********
 
-First, let's fill in parsePosts. We have a List[JValue], as well as something that takes a JValue and produces a Try[Post]. We need a Try[List[Post]].
+Lets fill in parsePosts. We have a List[JValue], and we need a List[Post]. Remember that yield will wrap our value in Try, because it is really just a call to map.
 
-## 3
+********
 
-```
-yield posts.flatMap(parsePost(_).toOption)
-```
+So, we use flatMap. If a post can't be parsed, we just ignore it. We need the toOption because list only works with other collections, not try.
 
-We need toOption because list a Try is not compatible with List's flatMap function
+We see that our result is a Future[Try[List[Post]]]
 
-## 4
+********
 
-Now, let's grab the first post and produce that.
+Now, let's get the first post. We will use flatMap on our Try[List[Post]] inside to turn it into a Try[Post].
 
-```
-val result = makeFrontpageRequest.map(body =>
-  parsePosts(body).flatMap(posts =>
-    Try(posts.head)
-  )
-)
-```
+Flatmap needs something that produces a try
 
-This is a Future[Try[Post]], as expected. We see that body is a String, and posts is a List[Post], since map/flatMap unwrap the value for us.
+********
 
-## 5
+We have a List[Post]
 
-This is a bit unwieldy, so let us write this using scala's shorthand, called a "for comprehension":
+********
 
-```
-val result = for {
-  body <- makeFrontpageRequest
-} yield
-  for {
-    posts <- parsePosts(body)
-    post <- Try(posts.head)
-  } yield post
-```
+So, we try to get the head of the list
 
-Which is a Future[Try[Post]] as expected
+********
 
-Remember that this for syntax can be reduced to only calls to flatmap. This syntax lets us see that this is just a pipeline for data.
+This is a Future[Try[Post]], as expected, since we turned our Try[List[Post]] into a Try[Post]
 
-4:40 / 3:10
+********
+
+Now, remember that nice syntax I showed you earlier. We can use that to make this much easier to understand. This is a Future[String]
+
+********
+
+Now, lets turn our String into a Try[Post]
+
+********
+
+We can see that the for yield block handles wrapping and unwrapping everything for us
+
+********
+
+And so, we built a pipeline! If any of these steps fail, the entire thing will stop. Otherwise, we get our expected result!
+
+4:40 / 1:50
+
+********
 
 # Further Reading
 
 I have prepared two more worksheet examples for you, talking about io and monad transformers if you are interested.
 
-On the github page, I have the slides, scala worksheets and some more resources for you to continue reading.
+On the github page, I have the slides, blank scala worksheets for you to fill in, and some more resources for you to continue reading.
 
 Thanks!
 

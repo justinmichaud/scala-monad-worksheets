@@ -147,7 +147,7 @@ val res = for {
 
 ---
 
-TODO
+![](img/1.png)
 
 ---
 
