@@ -42,8 +42,8 @@ Some(1)
 def flatMap[A,B](fn: A=>Monad[B]): Monad[B]
 
 // ex:
-List(1,2,3).flatMap(x => List(x, x*10))
-> res0: List[Int] = List(1, 10, 2, 20, 3, 30)
+List(1,2,3,4).flatMap(x => if (x%2==0) List(x) else List())
+> res0: List[Int] = List(2, 4)
 ```
 
 ---
@@ -142,7 +142,7 @@ val res = for {
     resOne <- doStepOne()
     resTwo <- doStepTwo(resOne)
 } yield resTwo
-> res: Option[Boolean]
+> res: Option[Boolean] = ...
 ```
 
 ---

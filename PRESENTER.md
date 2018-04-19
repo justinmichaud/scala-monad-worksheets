@@ -2,36 +2,73 @@
 
 [show comic]
 
-In this talk, I want to show you a small example of how you can use monads to make your code simpler.
+In this talk, I want to show you how you can use monads to make your code simpler.
 
 So what is a monad?
 
 For our purposes, a monad is a thing that has two operators
-1) Point, which can wrap up a base value
+
+********
+
+1) Point, which can wrap up a base value into our monad
+
+********
+
 2) Flatmap, which allows us to chain functions that operate on our base value
 
+We have our monad, wrapping some base type A. We take a function going from A to our Monad wrapping type B. Then, we produce a monad wrapping type B.
+
+For example, say we have a list. We take a function that takes the base type of the list, and produces a new list. Then, we can produce a new list.
+
+********
+
 Map is not part of the definition of a monad, but given a monad, the implementation here will always work.
+We can see how it works with list here
 
-THIS IS WHAT A MONAD IS! It is a way to abstract away control flow by piping functions together.
-
-The one takeaway I want you to get from this talk is: if you find yourself with a bunch of nested error checks,
-or re-inventing some way to "chain" steps together, try to use an existing monad!
-
-0:50 / 0:50
+********
 
 So what do Future, Option, and Try all have in common? The reason they "feel" similar is because they are all monads!
 
 Option abstracts away "nothingness". We only move on to the next step in the pipeline if we have "Some"
 
+********
+
+Otherwise, we just produce None
+
+********
+
 Try abstracts away exception handling. We only move on to the next step in the pipeline if we did not throw.
+
+********
+
+Otherwise, we fail
+
+********
 
 Future abstracts away when a computation is run. We move on some time in the future.
 
+********
+
+...
+
+********
+
+THIS IS WHAT A MONAD IS! It is a way to abstract away control flow by piping functions together.
+
+We can take a bunch of functions producing monads, and build a pipeline. If one fails, the rest do not get executed.
+
+********
+
+Scala has some nice syntax to show that this is really a pipeline. Under the hood, this is just flatmap
+
+********
+
+Now, for an example
+
 Let's look at an example.
 
-1:20 / 0:30
-
-## 1
+2:40 / 2:40
+********
 
 Your mission, should you choose to accept it, is to produce the title of the top post on reddit using monads.
 
