@@ -126,15 +126,11 @@ res
 # Pipelines
 
 ```scala
-def head2d[A](list: List[List[A]]) =
-    list.headOption.flatMap(headRow =>
-        headRow.headOption
-    )
+def doStepOne(): Option[Int]
+def doStepTwo(input: Int): Option[Boolean]
 
-head2d(List()) // None
-
-head2d(List(List(1,2)))
-> res1: Option[Int] = Some(1)
+val res = doStepOne.flatMap(doStepTwo)
+> res: Option[Boolean] = ...
 ```
 
 ---
@@ -142,15 +138,18 @@ head2d(List(List(1,2)))
 # Pipelines
 
 ```scala
-def head2d[A](list: List[List[A]]) =
-    for {
-        headRow <- list.headOption
-        head <- headRow.headOption
-    } yield head
+val res = for {
+    resOne <- doStepOne()
+    resTwo <- doStepTwo(resOne)
+} yield resTwo
+> res: Option[Boolean]
 ```
 
----?code=src/reddit_example_blank.sc&title=Parsing JSON With Monads
-@[23-36](Parse Reddit Front Page)
+---
+
+TODO
+
+---
 
 ### Where can I learn more?
 See the examples at [github.com/justinmichaud/scala-monad-worksheets](https://github.com/justinmichaud/scala-monad-worksheets) for
