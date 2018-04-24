@@ -1,6 +1,8 @@
 # Monad Scala Worksheets - Lightning Talk
 [Slides](https://gitpitch.com/justinmichaud/scala-monad-worksheets/master?grs=github&t=black)
 
+![](img/trophy.png)
+
 Each file has an associated _blank file for you to try for yourself. You should fill in the blanks to get the desired result. Suggested order is given below.
 
 You can open these examples as an intellij worksheet file, with the exception of the IO examples which require ammonite for input.
